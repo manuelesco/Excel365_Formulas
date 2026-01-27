@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórmulas en Microsoft Excel 365</title>
+    <style>
+		* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #217346 0%, #2b8856 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+			text-align: justify;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #217346 0%, #2b8856 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 115, 70, 0.4);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #185c37 0%, #1f6b42 100%);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .component-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #217346;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .component-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .component-card h3 {
+            color: #217346;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .component-card .icon {
+            font-size: 1.2em;
+        }
+        
+        .component-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 2px solid #e0e0e0;
+        }
+        
+        .component-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #217346;
+            color: #555;
+        }
+        
+        .component-card.expanded .component-details {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+        
+        .component-card.expanded h3::after {
+            content: " ▼";
+            font-size: 0.8em;
+        }
+        
+        .component-card:not(.expanded) h3::after {
+            content: " ▶";
+            font-size: 0.8em;
+        }
+        
+        .tips-list {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin-top: 20px;
+        }
+        
+        .tips-list h3 {
+            color: #e69500;
+            margin-bottom: 15px;
+        }
+        
+        .tips-list li {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        footer {
+            background: white;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #217346;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(33, 115, 70, 0.3);
+        }
+		
+		.warning-box{
+			background:#fff0f0;
+			border-left:6px solid #c0392b;
+			color:#7b1d14;
+			padding:14px 16px;
+			border-radius:8px;
+			margin:15px 0;
+			font-size:0.95rem;
+			line-height:1.5;
+			box-shadow:0 4px 10px rgba(0,0,0,0.08);
+		}
+		
+		.info-box{
+			background:#eef6ff;
+			border-left:6px solid #2a6fd6;
+			color:#1b3f73;
+			padding:14px 16px;
+			border-radius:8px;
+			margin:15px 0;
+			font-size:0.95rem;
+			line-height:1.5;
+			box-shadow:0 4px 10px rgba(0,0,0,0.08);
+		}
+
+		.example-inline{
+			display:inline-block;
+			background:#1b3f73;
+			color:#fff;
+			padding:3px 8px;
+			border-radius:6px;
+			font-family:Consolas,monospace;
+			margin:2px 0;
+		}
+		
+		.priority-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .priority-num {
+            background: #217346;
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            <!-- align-items: center; -->
+			align-items: flex-start;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+			margin-right: 10px;
+        }
+		
+		.priority-num {
+			background: #217346;
+			color: white;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			padding-top: 4px;      /* opcional */
+			border-radius: 50%;
+			font-weight: bold;
+			flex-shrink: 0;
+		}
+		
+		th {
+			text-align: center;
+			padding: 8px; 
+			border: 1px solid #217346;
+		}
+		
+		td {
+			padding:8px; 
+			border:1px solid #217346;
+		}	
+		
+		.error-box {
+            background: #fff5f5;
+            padding: 12px 16px;
+            border-left: 5px solid #e74c3c;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Introducción a Microsoft Excel 365</h1>
+            <h1>🧮 FÓRMULAS</h1>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar en la guía...">
+        </div>
+        
+        <div class="intro">
+            <h2>Introducción</h2>
+            <p>Las fórmulas son el corazón de Excel. Permiten realizar cálculos, analizar datos y automatizar tareas. Toda fórmula comienza con el signo <strong>=</strong> y puede incluir números, referencias a celdas, 
+			operadores y funciones.</p>
+			<p>
+				Las fórmulas, cuyo nombre correcto es expresiones; son el principal
+				elemento que ofrece funcionalidad a las hojas de cálculo de Excel; sin
+				éstas, las hojas serían un documento creado en un procesador de texto
+				o una presentación.
+				<br>
+				Las fórmulas se utilizan para obtener resultados de manera dinámica,
+				lo que significa que cuando un dato cambia, los resultados se reflejan inmediatamente, ya sea en valores o en una gráfica
+			</p>
+            <p>Esta guía explica los elementos fundamentales para empezar a crear fórmulas correctamente.</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('formulas')">📐 Elementos de las Fórmulas</button>
+			<button class="tab-button active" onclick="showTab('reglas')">🔝 Reglas de Prioridad</button>
+			<button class="tab-button active" onclick="showTab('errores')">⚠️ Errores en Fórmulas</button>
+            <button class="tab-button" onclick="showTab('consejos')">💡 Consejos y Atajos</button>
+        </div>
+        
+        <div id="formulas" class="content-section active">
+            <h2>Conceptos Básicos de las Fórmulas</h2>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🧩</span> Partes de una fórmula</h3>
+                <div class="component-details">
+					<p>Entender las piezas de una fórmula te permite solucionar errores y crear hojas más eficientes:</p>                    
+					
+					<div class="priority-item">
+						<div class="priority-num">1</div> 
+						<div>
+							<strong>El Signo de Igual (=)</strong>  
+							<p style="margin-bottom: 15px;">Es el "interruptor". Sin él, Excel simplemente verá texto o números estáticos. Al escribirlo, le indicas a la celda que se prepare para un cálculo.</p>
+						</div>
+					</div>
+					
+					<div class="priority-item">
+						<div class="priority-num">2</div>
+						<div>
+							<strong>Los Operandos (Los datos)</strong>  
+							<p>Son los valores que se utilizan para realizar los cálculos. Puede contener lo siguiente:</p>
+							<ul class="sub-item">
+								<li><strong>Referencias de celda:</strong> Como <code>A1</code> o <code>B10</code>. Es mejor usar estas que números fijos para que la fórmula se actualice sola si cambias los datos.</li>
+								<li><strong>Constantes:</strong> Números (ej. <code>5</code>) o texto (ej. <code>"Total"</code>) escritos directamente.</li>
+								<!--<li><strong>Nombres definidos:</strong> Etiquetas que tú creas para rangos o valores, como <code>IVA</code> o <code>Ventas_Enero</code>.</li>-->
+								<li><strong>Nombres de celdas:</strong> Etiquetas que tú creas para rangos o valores, como <code>IVA</code> o <code>Ventas_Enero</code>.</li>
+								<li><strong>Funciones:</strong> Fórmulas predefinidas (SUMA, PROMEDIO, etc.) que procesan argumentos y devuelven un valor para ser usado en la fórmula principal.</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="priority-item">
+						<div class="priority-num">3</div>
+						<div>
+							<strong>Los Operadores (La acción)</strong>  
+							<p>Es el símbolo que indica qué operación realizar. Se dividen en:</p>
+                    <ul class="sub-item">
+                        <li><strong>Aritméticos:</strong> Para cálculos matemáticos (+, -, *, /, %, ^).</li>
+                        <li><strong>Comparación:</strong> Para evaluar condiciones (=, >, <, <>, >=, <=).</li>
+                        <li><strong>Concatenación:</strong> Para unir cadenas de texto (&).</li>
+						<li><strong>Paréntesis:</strong> Para cambiar la prioridad de las operaciones/agrupar partes de una fórmula y para organizar los argumentos de las funciones.</li>
+                    </ul>
+						</div>
+					</div>
+					
+					<p><strong>Ejemplo:</strong></p>
+					<img src="images/partesFormula.png" alt="Partes de una Fórmula" class="component-image" title="Partes de una Fórmula" style="display: block; margin: 0 auto;  margin-top: 15px; max-width: 25%; height: auto; margin-bottom: 15px;">
+                    <p><strong>1. Funciones:</strong> la función PI() devuelve el valor de pi: 3.14...</p>
+					<p><strong>2. Referencias de celdas:</strong> A2 devuelve el valor de la celda A2.</p>
+					<p><strong>3. Constantes:</strong> números o valores de texto escritos directamente en una fórmula, por ejemplo: 2.</p>
+					<p><strong>4. Operadores:</strong> el operador ^ (acento circunflejo) eleva un número a una potencia, y el operador * (asterisco)
+					   múltiplica números.
+					</p>
+					
+					<!--
+					<br><br><br>
+					
+                    <p><strong>1. El Signo de Igual (=)</strong></p>
+                    <p style="margin-bottom: 15px;">Es el "interruptor". Sin él, Excel simplemente verá texto o números estáticos. Al escribirlo, le indicas a la celda que se prepare para un cálculo.</p>
+                    
+                    <p><strong>2. Los Operandos (Los datos)</strong></p>
+                    <p>Son los valores que quieres calcular. Pueden ser de varios tipos:</p>
+                    <ul class="sub-item">
+                        <li><strong>Referencias de celda:</strong> Como <code>A1</code> o <code>B10</code>. Es mejor usar estas que números fijos para que la fórmula se actualice sola si cambias los datos.</li>
+                        <li><strong>Constantes:</strong> Números (ej. <code>5</code>) o texto (ej. <code>"Total"</code>) escritos directamente.</li>
+                        <li><strong>Nombres definidos:</strong> Etiquetas que tú creas para rangos o valores, como <code>IVA</code> o <code>Ventas_Enero</code>.</li>
+						<li><strong>Funciones:</strong> Fórmulas predefinidas (SUMA, BUSCARV, SI) que procesan argumentos y devuelven un valor para ser usado en la fórmula principal.</li>
+                    </ul>
+
+                    <p><strong>3. Los Operadores (La acción)</strong></p>
+                    <p>Es el símbolo que indica qué operación realizar. Se dividen en:</p>
+                    <ul class="sub-item">
+                        <li><strong>Aritméticos:</strong> Para cálculos matemáticos (+, -, *, /).</li>
+                        <li><strong>Comparación:</strong> Para evaluar condiciones (=, >, <).</li>
+                        <li><strong>Concatenación:</strong> Para unir cadenas de texto (&).</li>
+						<li><strong>Paréntesis:</strong> Para cambiar la prioridad de las operaciones/agrupar partes de una fórmula y para organizar los argumentos de las funciones.</li>
+                    </ul>
+				
+					<br><br><br>
+				
+                    <p>Una fórmula típica en Excel consta de:</p>
+                    <ol>
+                        <li><strong>=</strong> → signo de inicio (obligatorio)</li>
+                        <li><strong>Referencias</strong> → celdas (A1, B5, C3:C10), rangos nombrados</li>
+                        <li><strong>Constantes</strong> → números fijos (5, 12.5, "texto")</li>
+                        <li><strong>Operadores</strong> → matemáticos, comparación, texto, etc.</li>
+                        <li><strong>Funciones</strong> → SUMA, PROMEDIO, SI, BUSCARV, etc.</li>
+                        <li><strong>Paréntesis</strong> → para controlar el orden de cálculo</li>
+                    </ol>
+                    <div class="formula-example">
+                        =(A1 + B1) * 1.16
+                    </div>
+                    <div class="formula-example">
+                        =SI(C5>=1000; "Alto"; "Normal")
+                    </div>
+					-->
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">➕➖✖️➗</span> Operadores aritméticos</h3>
+                <div class="component-details">
+				<p>Utilízalos para realizar las operaciones matemáticas básicas:</p>
+                    <table>
+                        <tr style="background:#e8f5e9;">
+                            <th>Operador</th>
+                            <th>Signo</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                            <th>Resultado (A1=10, B1=3)</th>
+                        </tr>
+                        <tr><td>Suma</td><td>+</td><td>Adición</td><td>=A1+B1</td><td>13</td></tr>
+                        <tr><td>Resta</td><td>-</td><td>Sustracción</td><td>=A1-B1</td><td>7</td></tr>
+                        <tr><td>Multiplicación</td><td>*</td><td>Producto</td><td>=A1*B1</td><td>30</td></tr>
+                        <tr><td>División</td><td>/</td><td>Cociente</td><td>=A1/B1</td><td>3.333...</td></tr>
+                        <tr><td>Porcentaje</td><td>%</td><td>Divide el número entre 100</td><td>=A1*15%</td><td>1.5</td></tr>
+                        <tr><td>Potencia</td><td>^</td><td>Exponenciación</td><td>=A1^B1</td><td>1000</td></tr>
+                        <tr><td>Paréntesis</td><td>()</td><td>Controla prioridad</td><td>=(A1+B1)*2</td><td>26</td></tr>
+                    </table>
+                    <p><strong>Nota:</strong> El operador % no es de concatenación, sino que convierte el número inmediatamente anterior en porcentaje (divide entre 100).</p>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">⚖️</span> Operadores de comparación</h3>
+                <div class="component-details">
+					<p>Sirven para comparar dos valores. El resultado siempre será un valor lógico: <strong>VERDADERO</strong> o <strong>FALSO</strong>.</p>
+                    <p>Se usan principalmente dentro de funciones lógicas (SI, CONTAR.SI, FILTRAR, etc.).</p>
+                    <table>
+                        <tr style="background:#e8f5e9;">
+                            <th>Operador</th>
+                            <th>Significado</th>
+                            <th>Ejemplo</th>
+                            <th>Resultado (si A1=10)</th>
+                        </tr>
+                        <tr><td>=</td><td>Igual a</td><td>A1=10</td><td>VERDADERO</td></tr>
+                        <tr><td><></td><td>Diferente de</td><td>A1<>5</td><td>VERDADERO</td></tr>
+                        <tr><td>></td><td>Mayor que</td><td>A1>8</td><td>VERDADERO</td></tr>
+                        <tr><td><</td><td>Menor que</td><td>A1<12</td><td>VERDADERO</td></tr>
+                        <tr><td>>=</td><td>Mayor o igual</td><td>A1>=10</td><td>VERDADERO</td></tr>
+                        <tr><td><=</td><td>Menor o igual</td><td>A1<=9</td><td>FALSO</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🔗</span> Operador de concatenación (&)</h3>
+                <div class="component-details">
+                    <p>Une textos, valores numéricos o resultados de celdas. Es el operador más común para combinar cadenas.</p>
+                    <p>Ejemplos:</p>
+                    <div class="formula-example">
+                        ="Total: $" & SUMA(B2:B10)
+                    </div>
+                    <div class="formula-example">
+                        =A2 & " " & B2 & " (" & C2 & " años)"
+                    </div>                    
+                    <p>Alternativas modernas: funciones <strong>CONCAT</strong> o <strong>TEXTO.UNIR</strong>, pero <strong>&</strong> sigue siendo muy usado por su simplicidad.</p>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">( )</span> Paréntesis</h3>
+                <div class="component-details">
+                    <p>
+						Los paréntesis en Excel son operadores de agrupación que se utilizan en para controlar el orden de los cálculos 
+						dentro de una fórmula.
+					</p>
+					<p>Ejemplos:</p>
+                    <div class="formula-example">
+                        =2+3*4            → 14     (primero 3×4 = 12, luego 12+2)
+                    </div>
+					<div class="formula-example">
+                        =(2+3)*4          → 20     (primero (2+3) = 5, luego 5*4)
+                    </div>
+					<p>
+						⚠️<strong> Regla importante</strong>: Todo lo que está dentro de paréntesis se calcula primero.
+					</p>	
+				</div>
+			</div>
+			
+			
+			
+        </div>
+		
+		<div id="reglas" class="content-section">
+            <h2>Reglas de prioridad</h2>
+			
+			<div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🥇</span> Prioridad de los operadores</h3>
+                <div class="component-details">
+                    <p>Excel evalúa las fórmulas siguiendo un orden de precedencia estricto (de mayor a menor prioridad):</p>
+                    <table>
+                        <tr style="background:#e8f5e9;">
+                            <th>Nivel</th>
+                            <th>Operador</th>
+                            <th>Descripción</th>
+                            <th>Ejemplo</th>
+                            <th>Resultado</th>
+                        </tr>
+                        <tr><td>1</td><td>( )</td><td>Paréntesis</td><td>=(2+3)*4</td><td>20</td></tr>
+                        <tr><td>2</td><td>^</td><td>Potencia</td><td>2+3^2</td><td>11</td></tr>
+						<tr><td>3</td><td>%</td><td>Porcentaje</td><td>200*10%</td><td>20</td></tr>
+                        <tr><td>4</td><td>*   /</td><td>Multiplicación y división</td><td>10+6*2</td><td>22</td></tr>
+                        <tr><td>5</td><td>+   -</td><td>Suma y resta</td><td>20-4+3</td><td>19</td></tr>
+                        <tr><td>6</td><td>&</td><td>Concatenación</td><td>"Año: "&2025+1</td><td>"Año: 2026"</td></tr>
+                        <tr><td>7</td><td>=  <>  >  <  >=  <=</td><td>Comparación</td><td>5+3=8</td><td>VERDADERO</td></tr>
+                    </table>
+                    <p><strong>Regla clave:</strong> Cuando los operadores tienen la misma prioridad (ej. * y /), se evalúan de izquierda a derecha.</p>
+                    <p>Ejemplos:</p>
+                    <div class="formula-example">
+                        =2+3*4          → 14     (primero 3*4 = 12, luego 12+2)
+                    </div>
+                    <div class="formula-example">
+                        =(2+3)*4        → 20     (paréntesis primero)
+                    </div>
+                    <div class="formula-example">
+                        =10-2^3         → 2      (primero 2³ = 8, luego 10-8)
+                    </div>
+					<div class="formula-example">
+                        =3*5*/2          → 7.5     (primero 3*5 = 15, luego 15/2)
+                    </div>
+                    <div class="formula-example">
+                        ="Mes "&"junio "&15%    → "Mes junio 0.15"
+                    </div>
+					
+					<p>
+						<strong>Nota</strong>: Con los operadores aritméticos, Excel siempre resuelve primero los paréntesis, 
+						después potencias, luego porcentajes, multiplicaciones y divisiones, y al final sumas y restas.
+					</p>					
+                </div>
+            </div>
+			
+			
+			
+			
+			<!--
+            <div class="priority-item">
+                <div class="priority-num">1</div>
+                <div><strong>Paréntesis ( ) :</strong> El nivel máximo de prioridad.</div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-num">2</div>
+                <div><strong>Porcentaje % :</strong> Se calcula inmediatamente después.</div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-num">3</div>
+                <div><strong>Potencia ^ :</strong> Elevación a exponentes.</div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-num">4</div>
+                <div><strong>Multiplicación * y División / :</strong> Misma prioridad, de izquierda a derecha.</div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-num">5</div>
+                <div><strong>Suma + y Resta - :</strong> Se ejecutan al final del bloque aritmético.</div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-num">6</div>
+                <div><strong>Concatenación & :</strong> Une textos una vez resueltos los números.</div>
+            </div>
+            <div class="priority-item">
+                <div class="priority-num">7</div>
+                <div><strong>Comparación (=, <>, etc.) :</strong> Es la última operación en evaluarse.</div>
+            </div>
+
+            <div class="formula-box" style="margin-top: 20px;">
+                Ejemplo: = (2 + 3) * 2 & " Unidades" ➔ "10 Unidades"
+            </div>
+			
+			 <div class="component-card" style="margin-top: 25px; cursor: default;">
+                <h3><span class="icon">💡</span> Ejemplo Práctico</h3>
+                <p>En la fórmula <code>=10 + 5 * 2 & " total"</code> el resultado es <strong>"20 total"</strong>.</p>
+                <p><small>Primero multiplica (5*2=10), luego suma (10+10=20) y finalmente une el texto.</small></p>
+            </div>
+			-->                      
+        </div>
+		
+		<div id="errores" class="content-section">
+			<h2>Errores en fórmulas</h2>
+			<div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">⚠️</span> Errores comunes en fórmulas</h3>
+                <div class="component-details">
+                    <div class="error-box">
+                        <strong>#¡DIV/0!</strong><br>
+                        División entre cero: Ocurre al dividir por cero.<br>
+                        Ejemplos: =5/0<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						=A1/B1 cuando B1 = 0
+                    </div>
+                    <div class="error-box">
+                        <strong>#¡VALOR!</strong><br>
+                        Tipo de dato incorrecto: Se intenta operar con texto en lugar de números.<br>
+                        Ejemplos: ="Hola" + 25<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						=A1+5     (si A1 contiene texto)
+                    </div>
+                    <div class="error-box">
+                        <strong>#¡NOMBRE?</strong><br>
+                        Operador mal escrito: Cuando se usa un símbolo incorrecto.<br>
+                        Ejemplos: =5x3<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						=10÷2
+                    </div>
+                    <div class="error-box">
+                        <strong>#¡REF!</strong><br>
+                        Referencia eliminada: La celda referenciada ya no existe.<br>
+                        Ejemplo: =A1+B1<br>
+						Si luego se elimina la columna A o B<br>
+						=A1+#REF! o =#REF!+B1
+                    </div>
+					<div class="error-box">
+                        <strong>#¡NUM!</strong><br>
+                        Número no válido: Resultados matemáticos imposibles o demasiado grandes.<br>
+                        Ejemplo: =(-5)^(1/2)
+                    </div>
+                </div>
+            </div>
+		</div>
+        
+        <div id="consejos" class="content-section">
+            <h2>Consejos y Atajos Útiles</h2>
+            
+            <div class="tips-list">
+                <h3>💡 Recomendaciones prácticas</h3>
+                <ul>
+                    <li>Siempre inicia con <strong>=</strong></li>
+					<!--
+                    <li><strong>F4</strong> → alterna entre referencias relativas y absolutas ($A$1, A$1, $A1)</li>
+                    <li><strong>Ctrl + `</strong> (acento grave) → muestra / oculta las fórmulas en las celdas</li>
+                    <li><strong>F9</strong> → evalúa la parte seleccionada de una fórmula (en modo edición)</li>
+					-->
+                    <li>Usa paréntesis aunque no sean obligatorios → mejora legibilidad</li>
+                    <li>Evita números "mágicos" en fórmulas → ponlos en celdas separadas</li>
+                    <li>Para concatenar con separadores → "& ", "& - ", etc.</li>
+                </ul>
+            </div>
+            
+            <div class="component-card" style="margin-top: 20px;">
+                <h3><span class="icon">🎯</span> Conclusión</h3>
+                <p>Entender las partes de una fórmula, los operadores (especialmente +, -, *, /, %, ^, &, y los de comparación) y su orden de prioridad es la base para construir cualquier cálculo en Excel. Practica estos conceptos antes de avanzar a funciones más complejas.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>📚 Guía Interactiva de Excel 365 | Haz clic en cada sección para obtener más información</p>
+        </footer>
+    </div>
+    
+	
+	<script>
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.content-section');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+        
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.component-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    if (searchTerm.length > 2) {
+                        card.classList.add('expanded');
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (searchTerm === '') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                    card.classList.remove('expanded');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
